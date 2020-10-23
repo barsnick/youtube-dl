@@ -421,6 +421,14 @@ class FacebookIE(InfoExtractor):
             'title', default=None)
         if not video_title:
             video_title = self._html_search_regex(
+                r'(?s)<title id="pageTitle"[^>]*>([^<]*)(?: \| Facebook)</title>',
+                webpage, 'title', default=None)
+        if not video_title:
+            video_title = self._html_search_regex(
+                r'(?s)<meta property="og:title" content="([^"]+)"[^>]*/>',
+                webpage, 'title', default=None)
+        if not video_title:
+            video_title = self._html_search_regex(
                 r'(?s)<span class="fbPhotosPhotoCaption".*?id="fbPhotoPageCaption"><span class="hasCaption">(.*?)</span>',
                 webpage, 'alternative title', default=None)
         if not video_title:
